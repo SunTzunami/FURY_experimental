@@ -20,7 +20,7 @@ import numpy as np
 # Downloading the PDB file of the protein to be rendered.
 # User can change the pdb_code depending on which protein they want to
 # visualize.
-pdb_code = '4kb2'
+pdb_code = '1crn'
 downloadurl = "https://files.rcsb.org/download/"
 pdbfn = pdb_code + ".pdb"
 flag = 0
@@ -158,26 +158,26 @@ dims = (screen_x_dim, screen_y_dim)
 showm = window.ShowManager(size=dims, title=pdb_code)
 
 
-tb = ui.TextBlock2D(text=pdb_code.upper(), position=(screen_x_dim/2-20,
-                    screen_y_dim/15), font_size=24, color=(1, 1, 1))
+tb = ui.TextBlock2D(text=pdb_code.upper(), position=(screen_x_dim/2-40,
+                    screen_y_dim/30), font_size=20, color=(1, 1, 1))
 tb.actor.GetTextProperty().SetFontFamilyToCourier()
 
 ###############################################################################
 # Creating the textblocks and molecular representations.
 
 reps = [stick_rep, ribbon_rep, ball_stick_rep, vdw_sphere_rep]
-
+rep = ['Stick', 'Ribbon', 'Ball & Stick', 'Sphere']
 text = []
 for i in range(4):
-    t_actor = actor.label('Function ' + str(i + 1), pos=(0, 0, 0),
-                          scale=(0.17, 0.2, 0.2))
+    t_actor = actor.label(rep[i], pos=(0, 0, 0),
+                          scale=(2, 2, 2))
     t_actor.SetCamera(showm.scene.camera())
     text.append(t_actor)
 
 ###############################################################################
 # Grid for the representations
 grid_ui = ui.GridUI(actors=reps, captions=text,
-                    caption_offset=(-0.7, -2.5, 0), dim=(1, 4),
+                    caption_offset=(-6, 0, 20), dim=(1, 4),
                     cell_padding=2,
                     aspect_ratio=1,
                     rotation_axis=(0, 1, 0))
@@ -186,9 +186,9 @@ showm.scene.add(grid_ui)
 showm.scene.reset_clipping_range()
 showm.scene.add(tb)
 
-showm.scene.set_camera((135.319, 532.130, 177.201),
-                       (117.881, 15.505, 23.075),
-                       (0.005, 0.286, -0.958))
+showm.scene.set_camera((39.169, 261.401, 84.727),
+                       (51.889, 20.541, 12.977),
+                       (0.0, 0.28, -0.96))
 showm.scene.zoom(2.5)
 
 ###############################################################################
