@@ -228,6 +228,12 @@ showm.scene.add(ribbon_rep)
 showm.scene.add(vdw_sphere_rep, vdw_opacity_line_slider)
 showm.scene.add(check_box)
 
+flag = 0
+###############################################################################
+# Delete the PDB file.
+if flag:
+    os.remove(outfnm)
+
 interactive = True
 if interactive:
     showm.start()
