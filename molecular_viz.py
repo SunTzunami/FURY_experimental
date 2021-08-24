@@ -20,7 +20,7 @@ import numpy as np
 # Downloading the PDB file of the protein to be rendered.
 # User can change the pdb_code depending on which protein they want to
 # visualize.
-pdb_code = '1qmv'
+pdb_code = '4kb2'
 downloadurl = "https://files.rcsb.org/download/"
 pdbfn = pdb_code + ".pdb"
 flag = 0
@@ -108,18 +108,19 @@ is_hetatm = np.array(is_hetatm)
 
 
 ###############################################################################
-# Helper function to make the visuals look good.
+# Helper function to make the visuals look good by manipulating lighting.
 def make_aesthetic(molecule_rep):
+    molecule_rep.GetProperty().SetAmbient(0.2)
     molecule_rep.GetProperty().SetDiffuse(1)
-    molecule_rep.GetProperty().SetSpecular(0.5)
-    molecule_rep.GetProperty().SetSpecularPower(90.0)
+    molecule_rep.GetProperty().SetSpecular(1)
+    molecule_rep.GetProperty().SetSpecularPower(100.0)
 
 
 ###############################################################################
 # Doing 3 things here -
 # 1. Creating the molecule object.
 # 2. Computing the bonding information for the molecule.
-# 3. Generating and adding molecular models to the scene.
+# 3. Generating and adding molecular representations to the scene.
 
 molecule = mol.Molecule(elements, points, atom_names, model,
                         residue_seq, chain, sheets, helix, is_hetatm)
@@ -127,7 +128,7 @@ molecule = mol.Molecule(elements, points, atom_names, model,
 mol.compute_bonding(molecule)
 
 # bounding box
-b_box = mol.bounding_box(molecule, colors=(0, 0.7, 1))
+b_box = mol.bounding_box(molecule, colors=(0, 0.8, 1), linewidth=0.4)
 
 # stick representation
 stick_rep = mol.stick(molecule, bond_thickness=0.2)
@@ -186,12 +187,12 @@ check_box = ui.Checkbox(all_labels, checked, padding=1, font_size=15,
 check_box.on_change = set_figure_visiblity
 
 
-vdw_opacity_line_slider = ui.LineSlider2D(initial_value=1, center=(500, 30),
+vdw_opacity_line_slider = ui.LineSlider2D(initial_value=1, center=(550, 70),
                                           min_value=0, max_value=1,
-                                          orientation="horizontal",
-                                          text_alignment="Top", length=100,
-                                          outer_radius=8, font_size=14,
-                                          text_template="Opacity({ratio:.0%})")
+                                          orientation="Vertical",
+                                          text_alignment="Left", length=80,
+                                          outer_radius=10, font_size=14,
+                                          text_template="Opacity({ratio:.0%}) ")
 
 def change_opacity(slider):
     opacity = slider.value
@@ -216,8 +217,11 @@ showm = window.ShowManager(size=dims, title=pdb_code)
 
 
 tb = ui.TextBlock2D(text=pdb_code.upper(), position=(screen_x_dim/2-40,
-                    screen_y_dim/12), font_size=30, color=(1, 1, 1))
-showm.scene.background((0.4, 0.4, 0.4))
+                    screen_y_dim/12), font_size=24, color=(1, 1, 1))
+tb.actor.GetTextProperty().SetFontFamilyToCourier()
+
+###############################################################################
+# Adding the textblocks, axes and molecular representations to the scene.
 showm.scene.reset_clipping_range()
 showm.scene.add(tb)
 showm.scene.add(actor.axes(scale=(5, 5, 5)))
@@ -232,9 +236,12 @@ showm.scene.add(check_box)
 # Delete the PDB file.
 flag = 0
 if flag:
-    os.remove(outfnm)
+    os.remove(pdbfn)
 
 interactive = True
 if interactive:
     showm.start()
+
+###############################################################################
+# to save a snapshot of the image
 window.record(showm.scene, size=dims, out_path=pdb_code+'.png')
