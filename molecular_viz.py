@@ -238,10 +238,20 @@ flag = 0
 if flag:
     os.remove(pdbfn)
 
+
+def timer_callback(_obj, _event):
+    showm.scene.azimuth(2)
+    showm.render()
+    # to end the animation
+
+###############################################################################
+# Run every 30 milliseconds
+showm.add_timer_callback(True, 30, timer_callback)
+
 interactive = True
 if interactive:
     showm.start()
 
 ###############################################################################
 # to save a snapshot of the image
-window.record(showm.scene, size=dims, out_path=pdb_code+'.png')
+window.record(showm.scene, size=dims, out_path='images/'+pdb_code+'.png')

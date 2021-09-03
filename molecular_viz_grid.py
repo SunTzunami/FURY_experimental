@@ -182,8 +182,6 @@ grid_ui = ui.GridUI(actors=reps, captions=text,
                     aspect_ratio=1,
                     rotation_axis=(0, 1, 0))
 showm.scene.add(grid_ui)
-
-showm.scene.reset_clipping_range()
 showm.scene.add(tb)
 
 showm.scene.set_camera((39.169, 261.401, 84.727),
@@ -197,11 +195,11 @@ flag = 0
 if flag:
     os.remove(pdbfn)
 
-
 interactive = True
 if interactive:
     showm.start()
 
 ###############################################################################
 # to save a snapshot of the image
-window.record(showm.scene, size=dims, out_path='images/grid_'+pdb_code+'.png')
+window.record(showm.scene, size=dims, out_path='images/grid_'+pdb_code+'.png',
+              reset_camera=False)
