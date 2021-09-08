@@ -110,7 +110,7 @@ equations = [eq1, eq2, eq3, eq4]
 
 ###############################################################################
 # List of colormaps to be used for the various functions.
-cmap_names = ['plasma', 'inferno', 'hot', 'viridis']
+cmap_names = ['Blues', 'inferno', 'hot', 'viridis']
 
 ###############################################################################
 # Creating a list of surfaces.
