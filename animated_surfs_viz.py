@@ -110,7 +110,7 @@ equations = [eq1, eq2, eq3, eq4]
 
 ###############################################################################
 # List of colormaps to be used for the various functions.
-cmap_names = ['plasma', 'cividis', 'hot', 'viridis']
+cmap_names = ['plasma', 'inferno', 'hot', 'viridis']
 
 ###############################################################################
 # Creating a list of surfaces.
@@ -189,4 +189,4 @@ if interactive:
     showm.start()
 
 window.record(showm.scene, size=(600, 600),
-              out_path="images/grid_viz_animated_surfaces.png")
+              out_path="images/animated_surfs_viz.png")

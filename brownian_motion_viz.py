@@ -154,7 +154,6 @@ def timer_callback(_obj, _event):
 ###############################################################################
 # Run every 30 milliseconds
 
-
 showm.add_timer_callback(True, 30, timer_callback)
 showm.start()
-window.record(showm.scene, size=(600, 600), out_path="images/viz_brownian_motion.png")
+window.record(showm.scene, size=(600, 600), out_path="images/brownian_motion_viz.png")
