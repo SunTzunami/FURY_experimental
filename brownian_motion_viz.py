@@ -103,7 +103,6 @@ def update_path(act, counter_step):
 # Creating a scene object and configuring the camera's position
 
 scene = window.Scene()
-scene.background((1.0, 1.0, 1.0))
 scene.zoom(2.7)
 scene.set_camera(position=(0, 0, 40), focal_point=(0.0, 0.0, 0.0),
                  view_up=(0.0, 0.0, 0.0))
@@ -125,15 +124,17 @@ scene.add(*l_particle)
 ###############################################################################
 # Initializing text box to display the name of the animation
 
-tb = ui.TextBlock2D(bold=True, position=(225, 40), color=(0, 0, 0))
+tb = ui.TextBlock2D(bold=True, position=(210, 40), color=(1, 1, 1))
 tb.message = "Brownian Motion"
+tb.actor.GetTextProperty().SetFontFamilyToCourier()
 scene.add(tb)
 
 ###############################################################################
 # Initializing text box to display the number of simulated steps
-tb2 = ui.TextBlock2D(text="Number of particles:\nSim Steps:",
-                     position=(50, 550), font_size=15, color=(0, 0, 0),
+tb2 = ui.TextBlock2D(text="Number of particles:\nSimulation Steps:",
+                     position=(50, 550), font_size=15, color=(1, 1, 1),
                      bold=True)
+tb2.actor.GetTextProperty().SetFontFamilyToCourier()
 scene.add(tb2)
 
 
@@ -143,11 +144,12 @@ scene.add(tb2)
 def timer_callback(_obj, _event):
     global counter_step
     counter_step += 1
-    tb2.message = "Number of particles: " + str(num_particles) + \
-                  "\nSim Steps: " + str(counter_step)
+    tb2.message = "Number of particles = " + str(num_particles) + \
+                  "\nSimulation Steps = " + str(counter_step)
     for p in l_particle:
         update_path(p, counter_step=counter_step)
     showm.render()
+    scene.azimuth(1.2)
     if counter_step == num_total_steps:
         showm.exit()
 

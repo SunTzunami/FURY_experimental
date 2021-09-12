@@ -110,7 +110,7 @@ equations = [eq1, eq2, eq3, eq4]
 
 ###############################################################################
 # List of colormaps to be used for the various functions.
-cmap_names = ['Blues', 'inferno', 'hot', 'viridis']
+cmap_names = ['Blues', 'inferno', 'viridis', 'hot']
 
 ###############################################################################
 # Creating a list of surfaces.
@@ -124,8 +124,7 @@ for i in range(4):
 # Creating a scene object and configuring the camera's position
 
 scene = window.Scene()
-scene.background((0.8, 0.8, 0.8))
-scene.set_camera(position=(4.45, -21, 12), focal_point=(4.45, 0.0, 0.0),
+scene.set_camera(position=(4.55, -21,  9), focal_point=(4.55, 0.0, 0.0),
                  view_up=(0.0, 0.0, 1.0))
 showm = window.ShowManager(scene, size=(600, 600))
 
@@ -150,8 +149,9 @@ showm.scene.add(grid_ui)
 
 ###############################################################################
 # Initializing text box to print the title of the animation
-tb = ui.TextBlock2D(bold=True, position=(200, 60), color=(0, 0, 0))
+tb = ui.TextBlock2D(bold=True, position=(180, 40), color=(1, 1, 1))
 tb.message = "Animated 2D functions"
+tb.actor.GetTextProperty().SetFontFamilyToCourier()
 scene.add(tb)
 
 ###############################################################################
